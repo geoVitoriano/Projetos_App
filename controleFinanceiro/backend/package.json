@@ -1,0 +1,26 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "loader.js",
+  "scripts": {
+    "dev": "nodemon",
+    "production" : "pm2 start loader.js --name backend"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/geoVitoriano/controleFinanceiro"
+  },
+  "author": "Geovani Vitoriano",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "express-query-int": "^3.0.0",
+    "mongoose": "^5.7.1",
+    "pm2": "^3.5.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.2"
+  }
+}
