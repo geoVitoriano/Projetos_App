@@ -1,2 +1,2 @@
 const server = require('./config/server')
-require('./config/rotas')(server)
+require('./config/routes')(server)

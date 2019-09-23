@@ -1,3 +1,5 @@
+
+
 const express = require('express')
 
 module.exports = function( server ) {
@@ -6,6 +8,6 @@ module.exports = function( server ) {
  
     // rotas de api
     const cicloDePagamentoServico = require('../api/cicloPagamento/cicloPagamentoServico')
-    // console.log( " teste " + cicloDePagamentoServicos )
     cicloDePagamentoServico.register(rota, '/cicloPagamentos')
 }
+
