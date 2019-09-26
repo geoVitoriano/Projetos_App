@@ -3,4 +3,4 @@ const CicloDePagamento = require('./cicloPagamento')
 // Vão ser criados os serviços Restful para o objeto ciclo de pagamento
 CicloDePagamento.methods(['get', 'post', 'put', 'delete'])
 // Será utilizado no mapeamento das rotas
-module.eports = CicloDePagamento
+module.exports = CicloDePagamento
