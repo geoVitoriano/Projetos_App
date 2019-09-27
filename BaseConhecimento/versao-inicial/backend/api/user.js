@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt-nodejs')
 
 module.exports = app => {
     // Utilizando o destrction
-    const { existsOrError, notExistsOrError, equalsOrError } = app.api.validation
+    const { existsOrError, notExistsOrError, equalsOrError } = app.api.validator
     /*
     O salt é uma sequencia de caracteres adicionados antes da senha para dar maior aleatoriedade
     ao resultado da criptografia .
@@ -24,9 +24,8 @@ module.exports = app => {
         // O id do usuário eventualmente pode vim através da requisição
         const user = { ...req.body }
 
-        if ( req.params.id ) {
-            user.id = req.params.id // O id pode vim nos parametros da requisição
-        }
+        if ( req.params.id ) user.id = req.params.id // O id pode vim nos parametros da requisição
+
         // Parte de tratamento
         try {
             existsOrError(user.name, 'Nome não informado !')
@@ -40,8 +39,8 @@ module.exports = app => {
             if ( !user.id ) {
                 notExistsOrError( userFromDB, 'Usuário não cadastrado !' )   
             } 
-        } catch(e) {
-            return res.status(400)
+        } catch(msg) {
+            return res.status(400).send(msg)
         }
 
         user.password = encryptPassword(user.password) 
@@ -50,9 +49,24 @@ module.exports = app => {
         if ( user.id ) {
             app.db('users')
                 .update(user)
+                .where({ id: user.id })
+                .then(_ => res.status(204).send())
+                .catch(err => res.status(500).send(err))
+        } else {
+            app.db('users')
+                .insert(users)
+                .then(_ => res.status(204).send())
+                .catch(err => res.status(500).send(err))
         }
 
     }
+    // Método responsável por obter todos os usuários
+    const get = ( req, res ) => {
+        app.db('users')
+        .select('id', 'name', 'email', 'admin')
+        .then(users => res.join(users))
+        .catch(err => res.status(500).send(err))
+    }
     
-    return { save }
+    return { save, get }
 }

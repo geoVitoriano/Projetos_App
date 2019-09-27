@@ -7,11 +7,11 @@ app.db = db // importou o knex já configurado
 consign()
      // Definição do que será lido 
     .then('./config/middleware.js')
+    .then('./api/validator.js')
     .then('./api')
     .then('./config/routes.js')
-    .then('')
     .into(app)
 
 app.listen(3000, () => {
-    console.log('Backend executando 2... ')
+    console.log('Backend executando ... ')
 })
